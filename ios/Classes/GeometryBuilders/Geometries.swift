@@ -32,8 +32,8 @@ func createBox(_ arguments: Dictionary<String, Any>) -> SCNBox {
 }
 
 func createLine(_ arguments: Dictionary<String, Any>) -> SCNGeometry {
-    let fromVector = deserizlieVector3(arguments["fromVector"] as! Array<Double>)
-    let toVector = deserizlieVector3(arguments["toVector"] as! Array<Double>)
+    let fromVector = deserializeVector3(arguments["fromVector"] as! Array<Double>)
+    let toVector = deserializeVector3(arguments["toVector"] as! Array<Double>)
     let source = SCNGeometrySource(vertices: [fromVector, toVector])
     
     let indices: [UInt8] = [0,1]

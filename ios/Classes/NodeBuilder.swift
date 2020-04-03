@@ -8,17 +8,21 @@ func createNode(_ geometry: SCNGeometry?, fromDict dict: Dictionary<String, Any>
         : SCNNode(geometry: geometry)
     
     if let position = dict["position"] as? Array<Double> {
-        node.position = deserizlieVector3(position)
+        node.position = deserializeVector3(position)
     }
     
     if let scale = dict["scale"] as? Array<Double> {
-        node.scale = deserizlieVector3(scale)
+        node.scale = deserializeVector3(scale)
     }
     
     if let rotation = dict["rotation"] as? Array<Double> {
-        node.rotation = deserizlieVector4(rotation)
+        node.rotation = deserializeVector4(rotation)
     }
     
+    if let eulerAngles = dict["eulerAngles"] as? Array<Double> {
+        node.eulerAngles = deserializeVector3(eulerAngles)
+    }
+
     if let name = dict["name"] as? String {
         node.name = name
     }

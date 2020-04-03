@@ -1,7 +1,7 @@
 import ARKit
 
 extension FlutterArkitView {
-    func initalize(_ arguments: Dictionary<String, Any>, _ result:FlutterResult) {
+    func initialize(_ arguments: Dictionary<String, Any>, _ result:FlutterResult) {
         if let showStatistics = arguments["showStatistics"] as? Bool {
             self.sceneView.showsStatistics = showStatistics
         }
@@ -14,7 +14,7 @@ extension FlutterArkitView {
             self.forceTapOnCenter = forceUserTapOnCenter
         }
         
-        initalizeGesutreRecognizers(arguments)
+        initializeGestureRecognizers(arguments)
         
         sceneView.debugOptions = parseDebugOptions(arguments)
         configuration = parseConfiguration(arguments)

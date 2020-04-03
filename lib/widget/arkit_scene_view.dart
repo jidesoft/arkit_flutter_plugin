@@ -283,7 +283,7 @@ class ARKitController {
   Future<void> add(ARKitNode node, {String parentNodeName}) {
     assert(node != null);
     final params = _addParentNodeNameToParams(node.toMap(), parentNodeName);
-    _subsribeToChanges(node);
+    _subscribeToChanges(node);
     return _channel.invokeMethod('addARKitNode', params);
   }
 
@@ -477,11 +477,13 @@ class ARKitController {
     return Future.value();
   }
 
-  void _subsribeToChanges(ARKitNode node) {
+  void _subscribeToChanges(ARKitNode node) {
     node.position.addListener(() => _handlePositionChanged(node));
     node.rotation.addListener(() => _handleRotationChanged(node));
     node.eulerAngles.addListener(() => _handleEulerAnglesChanged(node));
+    node.lookAt.addListener(() => _handleLookAtChanged(node));
     node.scale.addListener(() => _handleScaleChanged(node));
+    node.opacity.addListener(() => _handleOpacityChanged(node));
 
     if (node.geometry != null) {
       node.geometry.materials.addListener(() => _updateMaterials(node));
@@ -629,11 +631,25 @@ class ARKitController {
             _vector3Converter.toJson(node.eulerAngles.value)));
   }
 
+  void _handleLookAtChanged(ARKitNode node) {
+    _channel.invokeMethod<void>(
+        'lookAtChanged',
+        _getHandlerParams(node, 'lookAt',
+            _vector3Converter.toJson(node.lookAt.value)));
+  }
+
   void _handleScaleChanged(ARKitNode node) {
     _channel.invokeMethod<void>(
         'scaleChanged',
         _getHandlerParams(
             node, 'scale', _vector3Converter.toJson(node.scale.value)));
+  }
+
+  void _handleOpacityChanged(ARKitNode node) {
+    _channel.invokeMethod<void>(
+        'opacityChanged',
+        _getHandlerParams(
+            node, 'opacity', node.opacity.value));
   }
 
   void _updateMaterials(ARKitNode node) {
@@ -659,4 +675,9 @@ class ARKitController {
       ..addAll({paramName: params});
     return values;
   }
+
+  Future<void> createDirectionLabels(Map<String, dynamic> params) {
+    return _channel.invokeMethod('createDirectionLabels', params);
+  }
+
 }

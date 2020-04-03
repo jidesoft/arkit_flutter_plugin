@@ -6,7 +6,7 @@ extension FlutterArkitView: UIGestureRecognizerDelegate {
         return true
     }
     
-    func initalizeGesutreRecognizers(_ arguments: Dictionary<String, Any>) {
+    func initializeGestureRecognizers(_ arguments: Dictionary<String, Any>) {
         if let enableTap = arguments["enableTapRecognizer"] as? Bool {
             if (enableTap) {
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))

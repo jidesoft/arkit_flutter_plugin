@@ -31,7 +31,7 @@ class FlutterArkitView: NSObject, FlutterPlatformView {
         
         switch call.method {
         case "init":
-            initalize(arguments!, result)
+            initialize(arguments!, result)
             result(nil)
             break
         case "addARKitNode":
@@ -57,8 +57,16 @@ class FlutterArkitView: NSObject, FlutterPlatformView {
             onEulerAnglesChanged(arguments!)
             result(nil)
             break
+        case "lookAtChanged":
+            onLookAtChanged(arguments!)
+            result(nil)
+            break
         case "scaleChanged":
             onScaleChanged(arguments!)
+            result(nil)
+            break
+        case "opacityChanged":
+            onOpacityChanged(arguments!)
             result(nil)
             break
         case "updateSingleProperty":
@@ -96,6 +104,10 @@ class FlutterArkitView: NSObject, FlutterPlatformView {
             break
         case "dispose":
             onDispose(result)
+            result(nil)
+            break
+        case "createDirectionLabels":
+            onCreateDirectionLabels(arguments!)
             result(nil)
             break
         default:
