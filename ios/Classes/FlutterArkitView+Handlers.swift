@@ -91,6 +91,20 @@ extension FlutterArkitView {
         }
     }
 
+    func onPivotChanged(_ arguments: Dictionary<String, Any>) {
+        guard let name = arguments["name"] as? String,
+            let params = arguments["pivot"] as? Array<Double>
+            else {
+                logPluginError("deserialization failed", toChannel: channel)
+                return
+        }
+        if let node = sceneView.scene.rootNode.childNode(withName: name, recursively: true) {
+            node.pivot = deserializeMatrix(params)
+        } else {
+            logPluginError("node not found", toChannel: channel)
+        }
+    }
+
     func onScaleChanged(_ arguments: Dictionary<String, Any>) {
         guard let name = arguments["name"] as? String,
             let params = arguments["scale"] as? Array<Double>

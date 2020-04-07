@@ -57,6 +57,10 @@ class FlutterArkitView: NSObject, FlutterPlatformView {
             onEulerAnglesChanged(arguments!)
             result(nil)
             break
+        case "pivotChanged":
+            onPivotChanged(arguments!)
+            result(nil)
+            break
         case "lookAtChanged":
             onLookAtChanged(arguments!)
             result(nil)

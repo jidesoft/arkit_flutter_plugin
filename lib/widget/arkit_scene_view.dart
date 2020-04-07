@@ -274,6 +274,7 @@ class ARKitController {
 
   static const _vector3Converter = Vector3Converter();
   static const _vector4Converter = Vector4Converter();
+  static const _matrixConverter = MatrixConverter();
   static const _materialsConverter = ListMaterialsValueNotifierConverter();
 
   void dispose() {
@@ -482,6 +483,7 @@ class ARKitController {
     node.rotation.addListener(() => _handleRotationChanged(node));
     node.eulerAngles.addListener(() => _handleEulerAnglesChanged(node));
     node.lookAt.addListener(() => _handleLookAtChanged(node));
+    node.pivot.addListener(() => _handlePivotChanged(node));
     node.scale.addListener(() => _handleScaleChanged(node));
     node.opacity.addListener(() => _handleOpacityChanged(node));
 
@@ -629,6 +631,13 @@ class ARKitController {
         'eulerAnglesChanged',
         _getHandlerParams(node, 'eulerAngles',
             _vector3Converter.toJson(node.eulerAngles.value)));
+  }
+
+  void _handlePivotChanged(ARKitNode node) {
+    _channel.invokeMethod<void>(
+        'pivotChanged',
+        _getHandlerParams(node, 'pivot',
+            _matrixConverter.toJson(node.pivot.value)));
   }
 
   void _handleLookAtChanged(ARKitNode node) {

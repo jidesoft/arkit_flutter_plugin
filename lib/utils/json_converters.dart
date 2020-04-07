@@ -407,3 +407,23 @@ class Vector4ValueNotifierConverter
     return list;
   }
 }
+
+class MatrixValueNotifierConverter
+    implements JsonConverter<ValueNotifier<Matrix4>, List<dynamic>> {
+  const MatrixValueNotifierConverter();
+
+  @override
+  ValueNotifier<Matrix4> fromJson(List<dynamic> json) {
+    return ValueNotifier(Matrix4.fromFloat64List(json.cast<double>()));
+  }
+
+  @override
+  List<dynamic> toJson(ValueNotifier<Matrix4> object) {
+    if (object.value == null) {
+      return null;
+    }
+    final list = List<double>(16);
+    object?.value?.copyIntoArray(list);
+    return list;
+  }
+}
