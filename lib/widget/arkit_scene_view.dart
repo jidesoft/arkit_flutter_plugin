@@ -684,9 +684,4 @@ class ARKitController {
       ..addAll({paramName: params});
     return values;
   }
-
-  Future<void> createDirectionLabels(Map<String, dynamic> params) {
-    return _channel.invokeMethod('createDirectionLabels', params);
-  }
-
 }
